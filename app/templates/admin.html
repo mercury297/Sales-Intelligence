@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Upload into database</h1>
+    <!-- {% for post in posts %} -->
+    <!-- <div><p>{{ post.author.username }} says: <b>{{ post.body }}</b></p></div> -->
+    <!-- {% endfor %} -->
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        
+        <p>
+            {{ form.Contact_Record_Type.label }}<br>
+            {{ form.Contact_Record_Type.data}}<br>
+            {% for error in form.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        
+        <p>
+            {{ form.Created_Date.label }}<br>
+            {{ form.Created_Date.data}}<br>
+            {% for error in form.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        
+        <p>
+            {{ form.Contact_Owner.label }}<br>
+            {{ form.Contact_Owner.data}}<br>
+            {% for error in form.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.Contact_Owner.label }}<br>
+            {{ form.Contact_Owner.data}}<br>
+            {% for error in form.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.First_Name.label }}<br>
+            {{ form.First_Name.data}}<br>
+            {% for error in form.First_Name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+
+        <p>
+            {{ form.Last_Name.label }}<br>
+            {{ form.Last_Name.data}}<br>
+            {% for error in form.Last_Name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.Title.label }}<br>
+            {{ form.Title.data}}<br>
+            {% for error in form.Last_Name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.Account_Name.label }}<br>
+            {{ form.Account_Name.data}}<br>
+            {% for error in form.Account_Name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.Industry.label }}<br>
+            {{ form.Industry.data}}<br>
+            {% for error in form.Industry.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.Email1.label }}<br>
+            {{ form.Email1.data}}<br>
+            {% for error in form.Email1.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.Email2.label }}<br>
+            {{ form.Email2.data}}<br>
+            {% for error in form.Email2.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.Email1.label }}<br>
+            {{ form.Email1.data}}<br>
+            {% for error in form.Email1.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
+
+
+<!-- Contact_Record_Type = form.Contact_Record_Type.data
+        Created_Date = form.Created_Date.data
+        Contact_ID = form.Contact_ID.data
+        Contact_Owner = form.Contact_Owner.data
+        First_Name = form.First_Name.data
+        Last_Name = form.Last_Name.data
+        Title = form.Title.data
+        Account_Name = form.Account_Name.data
+        Industry = form.Industry.data
+        Email1 = form.Email1.data
+        Email2 = form.Email2.data -->
