@@ -2,13 +2,49 @@
 
 {% block content %}
 
+<div id="filters">
+        <p>Filters</p>
+        <form method="POST">
+            <p>
+                {{ form.Company.label }}<br>
+                {{ form.Company}}<br>                  
+            </p>
+
+            <p>
+                <select>
+                    {% for industry in industries%}
+                    <option>{{industry}}</option>
+                    {% endfor %}
+                </select>
+            </p>
+
+            <p>
+                    {{ form.News_Date_from.label }}<br>
+                    {{ form.News_Date_from}}                  
+            </p>
+
+            <p>
+                    {{ form.News_Date_to.label }}<br>
+                    {{ form.News_Date_to}}              
+            </p>
+
+            <p>
+                    {{ form.Mapped_to.label }}<br>
+                    {{ form.Mapped_to}}       
+            </p>
+
+            <p>{{ form.submit() }}</p>
+
+        </form>
+</div>
+<div>
 <table style="width:100%">
     <tr>
     {% for head in header %}
         <th>{{head}}</th>
     {% endfor %}
     </tr>
-{% for i in details %}
+{% for i in table %}
     <tr style="text-align: center">   
     <td>{{i.Company}}</td>
     <td>{{i.Industry}}</td>
@@ -18,4 +54,5 @@
     </tr>    
     {% endfor %}    
 </table>
+</div>
 {% endblock %}

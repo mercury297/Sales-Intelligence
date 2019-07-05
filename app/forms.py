@@ -56,7 +56,7 @@ class ContactDataForm(FlaskForm):
     submit = SubmitField('Insert')
 
 class CompanyDataForm(FlaskForm):
-    Company = StringField('Company', validators= [DataRequired])
+    Company = StringField('Company', validators= [DataRequired()])
     Industry = StringField('Industry')
     News_Date_from = DateField('News Date From', format='%m/%d/%Y')
     News_Date_to = DateField('News Date To', format='%m/%d/%Y')

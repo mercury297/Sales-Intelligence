@@ -147,7 +147,7 @@ def splash_page():
 @app.route('/Company_Details',methods = ['POST','GET'])
 def Company_Details():
     form = CompanyFiltersForm()
-    if form.validate_on_submit():
+    if form.is_submitted():
         Company = form.Company.data
         Industry = form.Industry.data
         News_Date_from = form.News_Date_from.data
@@ -155,19 +155,25 @@ def Company_Details():
         Mapped_to = form.Mapped_to.data
         table = CompanyData.query.filter_by(Company = Company,Industry = Industry,News_Date_from = News_Date_from
         ,News_Date_to = News_Date_to, Mapped_to = Mapped_to)
-
-        return render_template('company.html',table = table,header = header)
-    else:
-        table = CompanyData.query.all()
         header = list(CompanyData.__table__.columns.keys())
         
         industries = []
         for val in table:
             industries.append(val.Industry)
-
         industries = list(set(industries))
 
-        return render_template('company.html',  table = table,header = header)
+        return render_template('company.html',table = table,header = header,form = form,industries = industries)
+    # else:
+    table = CompanyData.query.all()
+    header = list(CompanyData.__table__.columns.keys())
+    
+    industries = []
+    for val in table:
+        industries.append(val.Industry)
+
+    industries = list(set(industries))
+
+    return render_template('company.html',  table = table,header = header,industries = industries,form = form)
 
 
 @app.route('/Contact_Details',methods = ['POST','GET'])
