@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import DataRequired,ValidationError,Email,EqualTo
-from app.models import User
+from wtforms import StringField, PasswordField, BooleanField, SubmitField,IntegerField,DateField
+from wtforms.validators import DataRequired,ValidationError,Email,EqualTo,URL
+from app.models import User,Data
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
@@ -26,31 +26,47 @@ class RegistrationForm(FlaskForm):
         if user is not None:
             raise ValidationError('Please use a different email address.')    
 
-class Admin(FlaskForm):
-    Contact_Record_Type =  StringField('Contact Record Type')
-    Created_Date = StringField('Created Date') #DateField('Created Date', format='%m/%d/%Y')
-    Contact_ID = StringField('Contact ID')
-    Contact_Owner = StringField('Contact Owner')
-    First_Name = StringField('First Name')
-    Last_Name = StringField('Last Name')
+class ContactDataForm(FlaskForm):
+    Contact_Record_Type =  StringField('Contact_Record_Type')
+    Created_Date = DateField('Created Date', format='%m/%d/%Y')
+    Contact_ID = StringField('Contact_ID')
+    Contact_Owner = StringField('Contact_Owner')
+    First_Name = StringField('First_Name')
+    Last_Name = StringField('Last_Name')
     Title = StringField('Title')
     Account_Name = StringField('Account Name')
     Industry = StringField('Industry')
     Email1 = StringField('Email1', validators=[DataRequired(), Email()])
     Email2 = StringField('Email2', validators=[Email()])
+    #added later
+    Phone = IntegerField('Phone')
+    Linkedin_URL = StringField('Linkedin_URL',validators = [URL()])
+    Contact_Status = StringField('Contact_Status')
+    New_Lead_Source = StringField('New_Lead_Source')
+    Services = StringField('Services')
+    Products = StringField('Products')
+    Mailing_City = StringField('Mailing_City')
+    Mailing_State = StringField('Mailing_State')
+    Mailing_Country = StringField('Mailing_Country')
+    Account_Name = StringField('Account_Name')
+    Region = StringField('Region')
+    Campaigns_targetted = StringField('Campaigns_targetted')
+    Email_Valid = StringField('Email_Valid')
+    Last_Targetted = StringField('Last_Targetted')
     submit = SubmitField('Insert')
-    #for later
-    # Phone = 
-    # Linkedin_URL = 
-    # Contact_Status = 
-    # New_Lead_Source = 
-    # Services = 
-    # Products = 
-    # Mailing_City = 
-    # Mailing_State = 
-    # Mailing_Country = 
-    # Account_Name = 
-    # Region = 
-    # Campaigns_targetted = 
-    # Email_Valid = 
-    # Last_Targetted = 
+
+class CompanyDataForm(FlaskForm):
+    Company = StringField('Company', validators= [DataRequired])
+    Industry = StringField('Industry')
+    News_Date_from = DateField('News Date From', format='%m/%d/%Y')
+    News_Date_to = DateField('News Date To', format='%m/%d/%Y')
+    Mapped_to = StringField('Mapped to')
+    submit = SubmitField('submit')
+
+class CompanyFiltersForm(FlaskForm):
+    Company = StringField('Company')
+    Industry = StringField('Industry')
+    News_Date_from = DateField('News Date From', format='%m/%d/%Y')
+    News_Date_to = DateField('News Date To', format='%m/%d/%Y')
+    Mapped_to = StringField('Mapped to')
+    submit = SubmitField('submit')

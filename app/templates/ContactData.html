@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Upload into database</h1>
+    <!-- {% for post in posts %} -->
+    <!-- <div><p>{{ post.author.username }} says: <b>{{ post.body }}</b></p></div> -->
+    <!-- {% endfor %} -->
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        
+        <p>
+            {{ form.Contact_Record_Type.label }}<br>
+            {{ form.Contact_Record_Type(size=64)}}<br>  
+            {% for error in form.Contact_Record_Type.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        
+        <p>
+            {{ form.Created_Date.label }}<br>
+            {{ form.Created_Date(size=64)}}<br>
+            {% for error in form.Created_Date.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        
+        <p>
+            {{ form.Contact_Owner.label }}<br>
+            {{ form.Contact_Owner(size=64)}}<br>
+            {% for error in form.Contact_Owner.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+
+        <p>
+            {{ form.First_Name.label }}<br>
+            {{ form.First_Name}}<br>
+            {% for error in form.First_Name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+
+        <p>
+            {{ form.Last_Name.label }}<br>
+            {{ form.Last_Name}}<br>
+            {% for error in form.Last_Name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.Title.label }}<br>
+            {{ form.Title}}<br>
+            {% for error in form.Title.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.Account_Name.label }}<br>
+            {{ form.Account_Name}}<br>
+            {% for error in form.Account_Name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.Industry.label }}<br>
+            {{ form.Industry}}<br>
+            {% for error in form.Industry.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.Email1.label }}<br>
+            {{ form.Email1}}<br>
+            {% for error in form.Email1.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.Email2.label }}<br>
+            {{ form.Email2}}<br>
+            {% for error in form.Email2.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.Phone.label }}<br>
+            {{ form.Phone}}<br>
+            {% for error in form.Phone.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.Linkedin_URL.label }}<br>
+            {{ form.Linkedin_URL}}<br>
+            {% for error in form.Linkedin_URL.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.Contact_Status.label }}<br>
+            {{ form.Contact_Status}}<br>
+            {% for error in form.Contact_Status.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.New_Lead_Source.label }}<br>
+            {{ form.New_Lead_Source}}<br>
+            {% for error in form.New_Lead_Source.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.Services.label }}<br>
+            {{ form.Services}}<br>
+            {% for error in form.Services.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>        
+        
+        <p>
+            {{ form.Products.label }}<br>
+            {{ form.Products}}<br>
+            {% for error in form.Products.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>        
+
+        <p>
+            {{ form.Mailing_City.label }}<br>
+            {{ form.Mailing_City}}<br>
+            {% for error in form.Mailing_City.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>        
+
+        <p>
+            {{ form.Mailing_Country.label }}<br>
+            {{ form.Mailing_Country}}<br>
+            {% for error in form.Mailing_Country.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>        
+
+        <p>
+            {{ form.Mailing_State.label }}<br>
+            {{ form.Mailing_State}}<br>
+            {% for error in form.Mailing_State.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>        
+
+        <p>
+            {{ form.Account_Name.label }}<br>
+            {{ form.Account_Name}}<br>
+            {% for error in form.Account_Name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>        
+
+        <p>
+            {{ form.Region.label }}<br>
+            {{ form.Region}}<br>
+            {% for error in form.Region.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>        
+
+        <p>
+            {{ form.Campaigns_targetted.label }}<br>
+            {{ form.Campaigns_targetted}}<br>
+            {% for error in form.Campaigns_targetted.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.Email_Valid.label }}<br>
+            {{ form.Email_Valid}}<br>
+            {% for error in form.Email_Valid.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.Last_Targetted.label }}<br>
+            {{ form.Last_Targetted}}<br>
+            {% for error in form.Last_Targetted.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
+
+
+<!-- Phone = IntegerField('Phone')
+Linkedin_URL = StringField('Linkedin_URL')
+Contact_Status = StringField('Contact_Status')
+New_Lead_Source = StringField('New_Lead_Source')
+Services = StringField('Services')
+Products = StringField('Products')
+Mailing_City = StringField('Mailing_City')
+Mailing_State = StringField('Mailing_State')
+Mailing_Country = StringField('Mailing_Country')
+Account_Name = StringField('Account_Name')
+Region = StringField('Region')
+Campaigns_targetted = StringField('Campaigns_targetted')
+Email_Valid = StringField('Email_Valid')
+Last_Targetted = StringField('Last_Targetted')
+submit = SubmitField('Insert') -->

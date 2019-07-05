@@ -1,0 +1,48 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div style="height: 100px">
+    <p>Filters</p>
+    <form method="POST">
+        
+    </form>
+</div>
+
+<table style="width:60%">
+    <tr>
+    {% for head in header %}
+        <th>{{head}}</th>
+    {% endfor %}
+    </tr>
+{% for i in table %}
+    <tr style="text-align: center">   
+        <td>{{i.Contact_Record_Type}}</td>
+        <td>{{i.Created_Date}}</td>
+        <td>{{i.Contact_ID}}</td> 
+        <td>{{i.Contact_Owner}}</td>
+        <td>{{i.First_Name}}</td> 
+        <td>{{i.Last_Name}}</td>
+        <td>{{i.Title}}</td> 
+        <td>{{i.Account_Name}}</td> 
+        <td>{{i.Industry}}</td> 
+        <td>{{i.Email1}}</td> 
+        <td>{{i.Email2}}</td> 
+        <td>{{i.Phone}}</td> 
+        <td>{{i.Linkedin_URL}}</td>
+        <td>{{i.Contact_Status}}</td>
+        <td>{{i.New_Lead_Source}}</td>
+        <td>{{i.Services}}</td> 
+        <td>{{i.Products}}</td> 
+        <td>{{i.Mailing_City}}</td>
+        <td>{{i.Mailing_State}}</td>
+        <td>{{i.Mailing_Country}}</td> 
+        <td>{{i.Region}}</td> 
+        <td>{{i.Campaigns_targetted}}</td>
+        <td>{{i.Email_Valid}}</td> 
+        <td>{{i.Last_Targetted}}</td>
+    </tr>    
+    {% endfor %}    
+</table>
+{% endblock %}

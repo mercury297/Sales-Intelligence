@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<table style="width:100%">
+    <tr>
+    {% for head in header %}
+        <th>{{head}}</th>
+    {% endfor %}
+    </tr>
+{% for i in details %}
+    <tr style="text-align: center">   
+    <td>{{i.Company}}</td>
+    <td>{{i.Industry}}</td>
+    <td>{{i.News_Date_from}}</td>
+    <td>{{i.News_Date_to}}</td>
+    <td>{{i.Mapped_to}}</td>
+    </tr>    
+    {% endfor %}    
+</table>
+{% endblock %}
