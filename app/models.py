@@ -35,11 +35,12 @@ class Data(db.Model):
         return '<Data {}>'.format(self.Contact_Record_Type) 
 
 class CompanyData(db.Model):
-    Company = db.Column(db.String(64),primary_key=True)
+    Company = db.Column(db.String(64))
     Industry = db.Column(db.String(64))
     News_Date_from = db.Column(db.String(64))
     News_Date_to = db.Column(db.String(64))
     Mapped_to = db.Column(db.String(64))
+    company_id = db.Column(db.Integer,primary_key=True)
 
     def __repr__(self):
         return '<Data {}>'.format(self.Company)
