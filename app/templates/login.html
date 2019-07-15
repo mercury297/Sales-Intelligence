@@ -1,20 +1,65 @@
-{% extends "base.html" %}
+<html>
 
-{% block content %}
-    <h1>Sign In</h1>
-    <form action="" method="post" novalidate>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <link href="{{ url_for('static',filename='style.css') }}" rel="stylesheet" type="text/css" />
+  
+    <!-- <script type="text/javascript" src="js/jquery-ui.min.js"></script> -->
+    <!-- <script type="text/javascript" src="js/jquery.multiselect.js"></script> -->
+    <!-- <script type="text/javascript" src="js/jquery.multiselect.filter.js"></script>   -->
+
+    </head>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+
+
+<body>
+<div class="login-pannel">
+<div class="col-lg-6 col-md-6 col-xs-12">
+    <div class="welcome-img"> <img src="{{url_for('static', filename='welcome-ontology.jpg')}}">
+      <div class ="welcome-title">Sales Intelligence</div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-md-6 col-xs-12">
+    <div class="login-title">Sign In</div>
+    <form action="" class="form-horizontal" role="form" autocomplete="off" method="post" novalidate>
         {{ form.hidden_tag() }}
-        <p>
+        <!-- <p>
             {{ form.username.label }}<br>
             {{ form.username(size=32) }}
-        </p>
-        <p>
+        </p> -->
+        <div style="margin-bottom: 25px" class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <!-- <input id="username" type="text" class="form-control login-input" name="username" placeholder="Username" autocomplete="off" required/> -->
+            {{ form.username(size=32,class_ = 'form-control login-input',placeholder = 'Username') }}
+        </div>
+
+        <!-- <p>
             {{ form.password.label }}<br>
             {{ form.password(size=32) }}
-        </p>
-        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-        <p>{{ form.submit() }}</p>
-    </form>
+        </p> -->
 
-    <p>New User? <a href="{{ url_for('register') }}">Click to Register!</a></p>
-{% endblock %}
+        <div style="margin-bottom: 25px" class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+            <!-- <input id="password" type="password" class="form-control login-input" name="password" placeholder="Password" autocomplete="off" required/> -->
+            {{ form.password(size=32,class_ = 'form-control login-input',placeholder = 'Password') }}
+        </div>
+
+        <!-- <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p> -->
+        <!-- <p>{{ form.submit() }}</p> -->
+        <div style="margin-top:10px" class="form-group"> 
+            <div class="col-sm-12 controls">
+                {{ form.submit(class_='btn-login') }}
+            </div>
+        </div>    
+    </form>
+</div>
+</body>
+
+
+</html>
+
+

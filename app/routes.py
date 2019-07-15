@@ -5,35 +5,36 @@ from flask_login import current_user, login_user,logout_user
 from app.models import User, Data, CompanyData
 from flask_login import login_required
 from werkzeug.urls import url_parse
+from sqlalchemy import text
+from werkzeug import secure_filename
+import os,datetime
+import pandas as pd
 # from app.forms import 
 
 #CUSTOMER.__table__.columns.keys() --> get list of column names
+
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_FOLD = '/app/uploads'
+UPLOAD_FOLDER = os.path.join(APP_ROOT, UPLOAD_FOLD)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
 
 @app.route('/')
 @app.route('/index')
 @login_required
 def index():
-    return 'yet to happen'  
+    return redirect(url_for('Company_Details'))  
 
-@app.route('/test')
-def display():
-    user = {'username': 'Miguel'}
-    posts = [
-        {
-            'author': {'username': 'John'},
-            'body': 'Beautiful day in Portland!'
-        },
-        {
-            'author': {'username': 'Susan'},
-            'body': 'The Avengers movie was so cool!'
-        }
-    ]
-    return render_template('test.html', user=user,posts= posts,title="title")
+
+# @login_manager.user_loader
+# def load_user(user_id):
+#     return User.get(user_id)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('Company_Details'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
@@ -44,13 +45,13 @@ def login():
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('index')
+            next_page = url_for('Company_Details')
         return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
 
 @app.route('/logout')
 def logout():
-    session.pop('username')
+    session.pop('username',None)
     logout_user()
     return redirect(url_for('index'))
 
@@ -140,44 +141,139 @@ def company():
         return 'not admin'    
 
 
-@app.route('/splash_page')
-def splash_page():
-    return render_template('home.html',title = 'Home')
+
 
 @app.route('/Company_Details',methods = ['POST','GET'])
 def Company_Details():
-    form = CompanyFiltersForm()
-    if form.is_submitted():
-        Company = form.Company.data
-        Industry = form.Industry.data
-        News_Date_from = form.News_Date_from.data
-        News_Date_to = form.News_Date_to.data
-        Mapped_to = form.Mapped_to.data
-        table = CompanyData.query.filter_by(Company = Company,Industry = Industry,News_Date_from = News_Date_from
-        ,News_Date_to = News_Date_to, Mapped_to = Mapped_to)
-        header = list(CompanyData.__table__.columns.keys())
-        
+    if(current_user.is_authenticated):
+        table = CompanyData.query.all()
         industries = []
         for val in table:
             industries.append(val.Industry)
         industries = list(set(industries))
+        
+        # print(industries)
 
-        return render_template('company.html',table = table,header = header,form = form,industries = industries)
-    # else:
-    table = CompanyData.query.all()
-    header = list(CompanyData.__table__.columns.keys())
-    
-    industries = []
-    for val in table:
-        industries.append(val.Industry)
+        # print(request.form.get("industry"))
+        form = CompanyFiltersForm()
+        # form.showind()
+        if form.is_submitted():    
+            Company = form.Company.data
+            # print(form.Industry.choices)
+            Industry = form.Industry.data 
+            News_Date_from = form.News_Date_from.data
+            News_Date_to = form.News_Date_to.data
+            Mapped_to = form.Mapped_to.data
+            # a = [Company,Industry,News_Date_from,News_Date_to,Mapped_to]
+            # print(a)
+            # return a[1]
 
-    industries = list(set(industries))
+            stm = "select * from company_data "
+            where = "where "
+            first_flag = False
+            if(Company):
+                stm = stm + where + "Company =" + "\"" + Company + "\""
+                first_flag = True    
+            
+            if(Industry):
+                if(first_flag):
+                    stm += " and " + " Industry = " + "\"" + Industry + "\"" 
+                else:
+                    stm = stm + where + " Industry =" + "\"" + Industry + "\""
 
-    return render_template('company.html',  table = table,header = header,industries = industries,form = form)
+            if(News_Date_from):
+                if(first_flag):
+                    stm += " and " + "News_Date_from =" + "\"" + News_Date_from + "\"" 
+                else:
+                    stm = stm + where + "News_Date_from =" + "\"" + News_Date_from + "\""
 
+            if(News_Date_to):
+                if(first_flag):
+                    stm += " and " + "News_Date_to =" + "\"" + News_Date_to + "\"" 
+                else:
+                    stm = stm + where + "News_Date_to =" + "\"" + News_Date_to + "\""            
+            
+            if( Mapped_to):
+                if(first_flag):
+                    stm += " and " + " Mapped_to =" + "\"" +  Mapped_to + "\"" 
+                else:
+                    stm = stm + where + " Mapped_to =" + "\"" +  Mapped_to + "\""
+            
+            # print(stm)
+            # return 'hi'
+            stm = text(stm)
+            table = CompanyData.query.from_statement(stm).all()
+            # table = CompanyData.query.filter_by(Company = Company,Industry = Industry,News_Date_from = News_Date_from,News_Date_to = News_Date_to)
+            # ,Industry = Industry,News_Date_from = News_Date_from
+            # ,News_Date_to = News_Date_to, Mapped_to = Mapped_to)
+
+            print(table)
+
+            header = list(CompanyData.__table__.columns.keys())
+            # print(form.Company.data)
+            
+            return render_template('company.html',table = table,header = header,form = form,industries = industries)
+        # else:
+        # table = CompanyData.query.all()
+        # industries = []
+        # for val in table:
+        #     industries.append(val.Industry)
+        # industries = list(set(industries))
+        
+        print(industries)
+        header = list(CompanyData.__table__.columns.keys())
+        
+        # print(header,industries)
+
+        return render_template('company.html',  table = table,header = header,industries = industries,form = form)
+    else:
+        return redirect(url_for('login'))
 
 @app.route('/Contact_Details',methods = ['POST','GET'])
 def Contact_Details():
-    details = Data.query.all()
+    table = Data.query.all()
     header = list(Data.__table__.columns.keys())
     return render_template('contact.html', table = table,header = header)
+
+# @app.route('/upload')
+# def upload_file():
+#    return render_template('uploads.html')
+	
+@app.route('/Company/uploader', methods = ['GET', 'POST'])
+def upload_file():
+   if current_user.is_authenticated:
+    if request.method == 'POST':
+        f = request.files['file']
+        data_xls = pd.read_excel(f)
+        data_xls_dict = data_xls.to_dict()
+        keys = list(data_xls_dict.keys())
+        #   print(data_xls_dict[keys[0]][0])
+        #   return 'no'
+        #   print(data_xls.Company)
+        company_obj = data_xls_dict[keys[0]]
+        industry_obj = data_xls_dict[keys[1]]
+        news_Date_from_obj = data_xls_dict[keys[2]]
+        news_Date_to_obj = data_xls_dict[keys[3]]
+        mapped_to_obj = data_xls_dict[keys[4]]
+        #   temp = news_Date_from_obj[0].date()
+        #   temp = datetime.datetime.strptime(str(temp), '%Y-%M-%d')
+        #   temp = temp.strftime('%m/%d/%Y')
+
+        #   print(str(temp))
+
+        for row in range(len(company_obj)):
+            temp1 , temp2 = str(news_Date_from_obj[row].date()),str(news_Date_from_obj[row].date())
+
+            company = CompanyData(Company = company_obj[row],Industry = industry_obj[row]
+            ,News_Date_from = temp1,News_Date_to = temp2,Mapped_to = mapped_to_obj[row])
+            print(company)
+            db.session.add(company)
+            db.session.commit()
+
+        #   print(data_xls['Contact Record Type'][0])
+
+
+        return redirect(url_for('upload_file'))
+    return render_template('uploads.html') 
+   else:
+       return redirect(url_for('login'))

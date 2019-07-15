@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField,IntegerField,DateField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField,IntegerField,DateField,SelectField
 from wtforms.validators import DataRequired,ValidationError,Email,EqualTo,URL
-from app.models import User,Data
+from app.models import User,Data,CompanyData
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
@@ -57,16 +57,33 @@ class ContactDataForm(FlaskForm):
 
 class CompanyDataForm(FlaskForm):
     Company = StringField('Company', validators= [DataRequired()])
-    Industry = StringField('Industry')
-    News_Date_from = DateField('News Date From', format='%m/%d/%Y')
-    News_Date_to = DateField('News Date To', format='%m/%d/%Y')
+    Industry = StringField('Industry') #SelectField('Industry')
+    News_Date_from = DateField('News Date From', format='%Y-%m-%d')
+    News_Date_to = DateField('News Date To', format='%Y-%m-%d')
     Mapped_to = StringField('Mapped to')
     submit = SubmitField('submit')
 
 class CompanyFiltersForm(FlaskForm):
     Company = StringField('Company')
-    Industry = StringField('Industry')
-    News_Date_from = DateField('News Date From', format='%m/%d/%Y')
-    News_Date_to = DateField('News Date To', format='%m/%d/%Y')
+    table = CompanyData.query.all()
+    industries = []
+    for val in table:
+        industries.append(val.Industry)
+    industries = list(set(industries))
+    # def __init__(self,industries):    
+	#     industries = self.industries
+    
+    # def showind(self):
+    #     print(self.industries)
+
+    # print(industries)
+    choice_list = []
+    
+    for i in industries:
+        choice_list.append((i,i))
+
+    Industry = SelectField('Industry',choices=choice_list)
+    News_Date_from = StringField('News Date From') #DateField('News Date From', format='%m/%d/%Y')
+    News_Date_to = StringField('News Date To') #DateField('News Date To', format='%m/%d/%Y')
     Mapped_to = StringField('Mapped to')
     submit = SubmitField('submit')

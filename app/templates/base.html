@@ -1,20 +1,54 @@
 <html>
     <head>
-      {% if title %}
-      <title>{{ title }} - Sales Intelligence</title>
-      {% else %}
-      <title>Welcome to Microblog</title>
-      {% endif %}
+    <!-- css links actually for login -->
+<!-- ----------------------------------------------------- -------------------------->
+
+    <!-- <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"> -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <!-- <script src="js/ocam.js"></script> -->
+    <!-- <link href="{{ url_for('static',filename='style.css') }}" rel="stylesheet" type="text/css" /> -->
+    <!-- <link href="css/bootstrap-select.min.css" rel="stylesheet" type="text/css" /> -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+    <!-- <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/jquery.multiselect.js"></script>
+    <script type="text/javascript" src="js/jquery.multiselect.filter.js"></script>   -->
+
+    <!-- ----------------------------------------------------- ------------------------------>
+      <!-- css links with course5 nav  -->
+      <title>Sales</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+      <link href="{{ url_for('static',filename='base_style.css') }}" rel="stylesheet" type="text/css" />
+
     </head>
     <body>
-      Microblog:
-      <a href="{{ url_for('index') }}">Home</a>
-      {% if current_user.is_anonymous %}
-      <a href="{{ url_for('login') }}">Login</a>
-      {% else %}
-      <a href="{{ url_for('logout') }}">Logout</a>
-      {% endif %}
-        <hr>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                 <a class="navbar-brand" href="#"><img  src="http://reports.course5i.com/logos/BlueoceanID210518.jpg" v:shapes="Picture_x0020_1"></a>
+                 <h2 style="color: #F15A24;text-align: center;font-family: roboto;margin-right: 150px;">Sales Intelligence</h2>
+              
+            </div>
+          </nav>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{{ url_for('Company_Details') }}">Home</a>
+        {% if current_user.is_anonymous %}
+        <a class="navbar-brand" href="{{ url_for('login') }}">Login</a>
+        {% else %}
+        <a class="navbar-brand" href="{{ url_for('logout') }}">Logout</a>
+        <!-- <a class="navbar-brand" href="{{ url_for('Company_Details') }}">Company Details</a> -->
+        {% endif %}
+        <a class="navbar-brand" href="{{ url_for('upload_file') }}">Bulk upload</a>
+      </nav>
+
         {% block content %}{% endblock %}
     </body>
 </html>

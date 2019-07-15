@@ -2,57 +2,118 @@
 
 {% block content %}
 
-<div id="filters">
-        <p>Filters</p>
+<div class="container-fluid text-center">    
+    <div class="row content">
+        <div class="col-sm-12 text-left"> 
         <form method="POST">
-            <p>
-                {{ form.Company.label }}<br>
-                {{ form.Company}}<br>                  
-            </p>
 
-            <p>
-                <select>
+            <ul class="nav nav-tabs" style="    margin-top: 11px;">
+                    <li class="active"><a data-toggle="tab" href="#home">Company Details</a></li>
+                    <!-- <li><a data-toggle="tab" href="#menu1" style="margin-left: 0px;">Contact Details</a></li>  -->
+                    
+                        {{ form.submit(class_ ="btn btn-primary btn-sm pull-right submit-button-company-filter") }}
+                        <label class="pull-right" style="font-size: 10px;color: #666666;margin-right: 7px;
+                            margin-top: 20px;">* if field not choosen all fields would be visible as default</label>
+            </ul>
+            <ul class="nav nav-tabs" style="border-bottom: 1px solid #ffffff;margin-left:0px;background-color: #fff;height: 26.4px;">
+            <li>
+                <p>
+                    {{form.Company(placeholder = 'Company')}}
+                </p>
+            </li>        
+            <!-- <p >
+                <select id= 'industry'>
                     {% for industry in industries%}
-                    <option>{{industry}}</option>
+                        <option value="{{ industry }}" selected>{{ industry }}</option>
                     {% endfor %}
                 </select>
-            </p>
-
+            </p> -->
+            <li>
             <p>
-                    {{ form.News_Date_from.label }}<br>
-                    {{ form.News_Date_from}}                  
+                    {{ form.News_Date_from(placeholder = 'News_Date_from')}}                  
             </p>
-
+            </li>
+            <li>
             <p>
-                    {{ form.News_Date_to.label }}<br>
-                    {{ form.News_Date_to}}              
+                  
+                    {{ form.News_Date_to(placeholder = 'News_Date_to')}}              
             </p>
-
+            </li>
+            <li>
             <p>
-                    {{ form.Mapped_to.label }}<br>
-                    {{ form.Mapped_to}}       
+               
+                    {{ form.Mapped_to(placeholder = 'Mapped_to')}}       
             </p>
+            </li>
 
-            <p>{{ form.submit() }}</p>
+            <li>
+            <p >
+                {{ form.Industry(placeholder = 'Industry',class_ = 'Company_Industry_select_')}}                  
+            </p>
+            </li>
+
+        </ul>
 
         </form>
+    </div>
+
+    <div style="padding-left: 25px">
+            <table style="width:80%;padding-left: 25px" class="table table-dark">
+                <thead class="thead-dark">
+                    <tr >
+                    {% for head in header %}
+                        <th scope="col" >{{head}}</th>
+                    {% endfor %}
+                    </tr>
+                </thead>
+            {% for i in table %}
+                <tbody>
+                    <tr >   
+                    <td>{{i.Company}}</td>
+                    <td>{{i.Industry}}</td>
+                    <td>{{i.News_Date_from}}</td>
+                    <td>{{i.News_Date_to}}</td>
+                    <td>{{i.Mapped_to}}</td>
+                    </tr>
+                </tbody>        
+                {% endfor %}    
+            </table>
+            </div>
+
+    </div>
 </div>
-<div>
-<table style="width:100%">
-    <tr>
-    {% for head in header %}
-        <th>{{head}}</th>
-    {% endfor %}
-    </tr>
-{% for i in table %}
-    <tr style="text-align: center">   
-    <td>{{i.Company}}</td>
-    <td>{{i.Industry}}</td>
-    <td>{{i.News_Date_from}}</td>
-    <td>{{i.News_Date_to}}</td>
-    <td>{{i.Mapped_to}}</td>
-    </tr>    
-    {% endfor %}    
-</table>
-</div>
+<!------------------- table html --------------------------->
+
 {% endblock %}
+
+
+<!-- <div class="container-fluid text-center">    
+        <div class="row content">
+      
+                <div class="col-sm-12 text-left"> 
+              <ul class="nav nav-tabs" style="    margin-top: 11px;">
+                <li class="active"><a data-toggle="tab" href="#home">Company Details</a></li>
+                <li><a data-toggle="tab" href="#menu1" style="margin-left: 0px;">Contact Details</a></li> 
+              
+                  <button type="button" class="btn btn-primary btn-sm pull-right" style="background-color: #F15A24; font-size: 12px;border-radius: 0px;"><b>Click to apply</b></button>  
+                  <label class="pull-right" style="font-size: 10px;color: #666666;margin-right: 7px;
+                      margin-top: 20px;">* if field not choosen all fields would be visible as default</label>
+             </ul>
+      
+            <ul class="nav nav-tabs" style="border-bottom: 1px solid #ffffff;margin-left:0px;background-color: #fff;">
+                <li class="dropdown"><button class="dropbtn btn-primary dropdown-toggle" type="  button" data-toggle="dropdown" >Type
+                <span class="caret"></span></button>
+                    
+                    <ul class="dropdown-menu">
+                      <li><a href="#">1</a></li>
+                      <li><a href="#">2</a></li>
+                      <li><a href="#">3</a></li>
+                    </ul>
+                </li>
+            </ul>
+      
+      
+        
+        </div>
+      </div>
+      </div> -->
