@@ -55,6 +55,7 @@ class ContactDataForm(FlaskForm):
     Last_Targetted = StringField('Last_Targetted')
     submit = SubmitField('Insert')
 
+
 class CompanyDataForm(FlaskForm):
     Company = StringField('Company', validators= [DataRequired()])
     Industry = StringField('Industry') #SelectField('Industry')
@@ -63,27 +64,86 @@ class CompanyDataForm(FlaskForm):
     Mapped_to = StringField('Mapped to')
     submit = SubmitField('submit')
 
+def get_unique(table,field):
+    field_list = []
+    if(field == 'Industry'):
+        for val in table:
+            field_list.append(val.Industry)
+        field_list = list(set(field_list))
+    elif(field == 'Contact_Status'):
+        for val in table:
+            field_list.append(val.Contact_Status)
+        field_list = list(set(field_list))
+    elif(field == 'New_Lead_Source'):
+        for val in table:
+            field_list.append(val.New_Lead_Source)
+        field_list = list(set(field_list))
+    elif(field == 'Services'):
+        for val in table:
+            field_list.append(val.Services)
+        field_list = list(set(field_list))
+    elif(field == 'Products'):
+        for val in table:
+            field_list.append(val.Products)
+        field_list = list(set(field_list))    
+    elif(field == 'Email_Valid'):
+        for val in table:
+            field_list.append(val.Email_Valid)
+        field_list = list(set(field_list))    
+
+    choice_list = []
+    for i in field_list:
+        choice_list.append((i,i))
+    field_list = list(filter(None, field_list)) 
+    return choice_list
+
 class CompanyFiltersForm(FlaskForm):
     Company = StringField('Company')
     table = CompanyData.query.all()
-    industries = []
-    for val in table:
-        industries.append(val.Industry)
-    industries = list(set(industries))
-    # def __init__(self,industries):    
-	#     industries = self.industries
-    
-    # def showind(self):
-    #     print(self.industries)
 
-    # print(industries)
-    choice_list = []
+    industries = get_unique(table,'Industry' )
     
-    for i in industries:
-        choice_list.append((i,i))
-
-    Industry = SelectField('Industry',choices=choice_list)
+    Industry = SelectField('Industry',choices=industries)
     News_Date_from = StringField('News Date From') #DateField('News Date From', format='%m/%d/%Y')
     News_Date_to = StringField('News Date To') #DateField('News Date To', format='%m/%d/%Y')
     Mapped_to = StringField('Mapped to')
     submit = SubmitField('submit')
+
+class ContactFiltersForm(FlaskForm):
+    #lists for dropdowns
+    table = Data.query.all()
+    industries = get_unique(table,'Industry')
+    status = get_unique(table,'Contact_Status')
+    sources = get_unique(table,'New_Lead_Source')
+    services = get_unique(table,'Services')
+    products = get_unique(table,'Products')
+    email_Valid = get_unique(table,'Email_Valid')
+    
+    #fields 
+    Contact_Record_Type =  StringField('Contact_Record_Type')
+    Created_Date = StringField('Created Date')
+    Contact_ID = StringField('Contact_ID')
+    Contact_Owner = StringField('Contact_Owner')
+    First_Name = StringField('First_Name')
+    Last_Name = StringField('Last_Name')
+    Title = StringField('Title')
+    Account_Name = StringField('Account Name')
+    Industry = SelectField('Industry',choices= industries)
+    Email1 = StringField('Email1', validators=[Email()])
+    Email2 = StringField('Email2', validators=[Email()])
+    #added later
+    Linkedin_URL = StringField('Linkedin_URL',validators = [URL()])
+    Contact_Status = SelectField('Contact_Status',choices = status)
+    New_Lead_Source = SelectField('New_Lead_Source',choices = sources)
+    Services = SelectField('Services',choices = services)
+    Products = SelectField('Products',choices = products)
+    Mailing_City = StringField('Mailing_City')
+    Mailing_State = StringField('Mailing_State')
+    Mailing_Country = StringField('Mailing_Country')
+    Account_Name = StringField('Account_Name')
+    Region = StringField('Region')
+    Campaigns_targetted = StringField('Campaigns_targetted')
+    Email_Valid = SelectField('Email_Valid',choices = email_Valid)
+    Last_Targetted = StringField('Last_Targetted')
+    submit = SubmitField('Apply')
+

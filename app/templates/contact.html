@@ -3,39 +3,188 @@
 
 {% block content %}
 
-<table style="width:60%">
-    <tr>
-    {% for head in header %}
-        <th>{{head}}</th>
-    {% endfor %}
-    </tr>
-{% for i in table %}
-    <tr style="text-align: center">   
-        <td>{{i.Contact_Record_Type}}</td>
-        <td>{{i.Created_Date}}</td>
-        <td>{{i.Contact_ID}}</td> 
-        <td>{{i.Contact_Owner}}</td>
-        <td>{{i.First_Name}}</td> 
-        <td>{{i.Last_Name}}</td>
-        <td>{{i.Title}}</td> 
-        <td>{{i.Account_Name}}</td> 
-        <td>{{i.Industry}}</td> 
-        <td>{{i.Email1}}</td> 
-        <td>{{i.Email2}}</td> 
-        <td>{{i.Phone}}</td> 
-        <td>{{i.Linkedin_URL}}</td>
-        <td>{{i.Contact_Status}}</td>
-        <td>{{i.New_Lead_Source}}</td>
-        <td>{{i.Services}}</td> 
-        <td>{{i.Products}}</td> 
-        <td>{{i.Mailing_City}}</td>
-        <td>{{i.Mailing_State}}</td>
-        <td>{{i.Mailing_Country}}</td> 
-        <td>{{i.Region}}</td> 
-        <td>{{i.Campaigns_targetted}}</td>
-        <td>{{i.Email_Valid}}</td> 
-        <td>{{i.Last_Targetted}}</td>
-    </tr>    
-    {% endfor %}    
-</table>
+<!----------------- form html ------------------>
+<div class="container-fluid text-center">    
+    <div class="row content">
+        <div class="col-sm-12 text-left"> 
+        <form method="POST">
+
+            <ul class="nav nav-tabs" style="    margin-top: 11px;">
+                    <li class="active"><a data-toggle="tab" href="#home">Contact Details</a></li>
+                    <!-- <li><a data-toggle="tab" href="#menu1" style="margin-left: 0px;">Contact Details</a></li>  -->
+                    
+                        {{ form.submit(class_ ="btn btn-primary btn-sm pull-right submit-button-company-filter",value = "apply") }}
+                        <label class="pull-right" style="font-size: 10px;color: #666666;margin-right: 7px;
+                            margin-top: 20px;">* if field not choosen all fields would be visible as default</label>
+            </ul>
+            <ul class="nav nav-tabs" style="border-bottom: 1px solid #ffffff;margin-left:0px;background-color: #fff;height: 26.4px;">
+                <li>
+                    <p>
+                        {{form.Contact_Record_Type(placeholder = 'Contact_Record_Type')}}
+                    </p>
+                </li>
+                <li>
+                        <p>
+                            {{form.Created_Date(placeholder = 'Created_Date')}}
+                        </p>
+                </li>
+                <li>
+                        <p>
+                            {{form.Contact_ID(placeholder = 'Contact_ID')}}
+                        </p>
+                </li>
+                <li>
+                        <p>
+                            {{form.Contact_Owner(placeholder = 'Contact_Owner')}}
+                        </p>
+                </li>
+                <li>
+                        <p>
+                            {{form.First_Name(placeholder = 'First_Name')}}
+                        </p>
+                </li>
+                <li>
+                        <p>
+                            {{form.Last_Name(placeholder = 'Last_Name')}}
+                        </p>
+                </li>
+                <li>
+                        <p>
+                            {{form.Title(placeholder = 'Title')}}
+                        </p>
+                </li>
+                <li>
+                        <p>
+                            {{form.Account_Name(placeholder = 'Account_Name')}}
+                        </p>
+                </li>
+                <li>
+                        <p>
+                            {{form.Industry(placeholder = 'Industry')}}
+                        </p>
+                </li>
+                <li>
+                        <p>
+                            {{form.Email1(placeholder = 'Email1')}}
+                        </p>
+                </li>
+                <li>
+                        <p>
+                            {{form.Email2(placeholder = 'Email2')}}
+                        </p>
+                </li>
+
+                <li>
+                        <p>
+                            {{form.Linkedin_URL(placeholder = 'Linkedin_URL')}}
+                        </p>
+                </li>
+                <li>
+                        <p>
+                            {{form.Contact_Status(placeholder = 'Contact_Status')}}
+                        </p>
+                </li>
+                <li>
+                        <p>
+                            {{form.New_Lead_Source(placeholder = 'New_Lead_Source')}}
+                        </p>
+                </li>
+                <li>
+                        <p>
+                            {{form.Services(placeholder = 'Services')}}
+                        </p>
+                </li>
+                <li>
+                        <p>
+                            {{form.Products(placeholder = 'Products')}}
+                        </p>
+                </li>
+                <li>
+                        <p>
+                            {{form.Mailing_City(placeholder = 'Mailing_City')}}
+                        </p>
+                </li>
+                <li>
+                        <p>
+                            {{form.Mailing_State(placeholder = 'Mailing_State')}}
+                        </p>
+                </li>
+                <li>
+                        <p>
+                            {{form.Mailing_Country(placeholder = 'Mailing_Country')}}
+                        </p>
+                </li>
+                <li>
+                        <p>
+                            {{form.Region(placeholder = 'Region')}}
+                        </p>
+                </li>
+                <li>
+                        <p>
+                            {{form.Campaigns_targetted(placeholder = 'Campaigns_targetted')}}
+                        </p>
+                </li>
+                <li>
+                        <p>
+                            {{form.Email_Valid(placeholder = 'Email_Valid')}}
+                        </p>
+                </li>
+                <li>
+                        <p>
+                            {{form.Last_Targetted(placeholder = 'Last_Targetted')}}
+                        </p>
+                </li>
+            </ul>
+        </form>
+        </div>
+
+
+
+<!----------------- form html ------------------>
+
+<!----------------- table html ------------------>
+    <div style="padding-left: 25px">
+        <table style="width:80%;padding-left: 25px" class="table table-dark">
+            <thead class="thead-dark">
+                <tr>
+                {% for head in header %}
+                    <th scope="col" >{{head}}</th>
+                {% endfor %}
+                </tr>
+            </thead>
+        {% for i in table %}
+        <tbody>
+            <tr style="text-align: center">   
+                <td>{{i.Contact_Record_Type}}</td>
+                <td>{{i.Created_Date}}</td>
+                <td>{{i.Contact_ID}}</td> 
+                <td>{{i.Contact_Owner}}</td>
+                <td>{{i.First_Name}}</td> 
+                <td>{{i.Last_Name}}</td>
+                <td>{{i.Title}}</td> 
+                <td>{{i.Account_Name}}</td> 
+                <td>{{i.Industry}}</td> 
+                <td>{{i.Email1}}</td> 
+                <td>{{i.Email2}}</td> 
+                <td>{{i.Phone}}</td> 
+                <td>{{i.Linkedin_URL}}</td>
+                <td>{{i.Contact_Status}}</td>
+                <td>{{i.New_Lead_Source}}</td>
+                <td>{{i.Services}}</td> 
+                <td>{{i.Products}}</td> 
+                <td>{{i.Mailing_City}}</td>
+                <td>{{i.Mailing_State}}</td>
+                <td>{{i.Mailing_Country}}</td> 
+                <td>{{i.Region}}</td> 
+                <td>{{i.Campaigns_targetted}}</td>
+                <td>{{i.Email_Valid}}</td> 
+                <td>{{i.Last_Targetted}}</td>
+            </tr>    
+            {% endfor %}    
+        </tbody>
+        </table>
+    </div>
+</div>
+</div>
+<!----------------- table html ------------------>
 {% endblock %}
